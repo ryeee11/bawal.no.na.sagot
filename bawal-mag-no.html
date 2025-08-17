@@ -5,51 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CRUSH</title>
   <style>
-    :root{--bg:#0f1226;--card:#171a36;--text:#f5f7ff;--muted:#a7abcf;--accent:#7c86ff}
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; display:grid; place-items:center; background:radial-gradient(90vmax 90vmax at 50% -20%, #20245a 0%, #0f1226 55%);
-      color:var(--text); font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+    :root {
+      --bg:#0f1226;
+      --card:#171a36;
+      --text:#f5f7ff;
+      --muted:#a7abcf;
+      --accent:#7c86ff
     }
-    .card{
-      width:min(680px, 92vw); background:var(--card); border-radius:28px; padding:32px; box-shadow:0 20px 60px rgba(0,0,0,.4);
+    * { box-sizing:border-box }
+    html,body { height:100% }
+    body {
+      margin:0;
+      display:grid;
+      place-items:center;
+      background:radial-gradient(90vmax 90vmax at 50% -20%, #20245a 0%, #0f1226 100%);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif
+    }
+    .card {
+      width:min(680px, 92vw);
+      background:var(--card);
+      border-radius:28px;
+      padding:32px;
+      box-shadow:0 20px 60px rgba(0,0,0,.4);
       border:1px solid rgba(255,255,255,.06)
     }
-    h1{margin:0 0 16px; font-size:clamp(24px,5vw,36px); letter-spacing:.5px; text-align:center}
-    .img-wrap{display:grid; place-items:center; margin:8px 0 16px}
-    .img-wrap img{width:156px; height:156px; object-fit:cover; border-radius:24px; box-shadow:0 14px 40px rgba(0,0,0,.35)}
-    .btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:8px 0 4px}
-    button{
-      appearance:none; border:0; padding:12px 20px; border-radius:999px; font-size:16px; cursor:pointer; font-weight:600;
-      background:linear-gradient(180deg,#8a93ff,#6f79ff); color:white; box-shadow:0 10px 24px rgba(124,134,255,.35);
-      transition:transform .12s ease, box-shadow .2s ease, background .2s ease
+    h1 {
+      margin:0 0 16px;
+      font-size:clamp(24px,5vw,36px);
+      letter-spacing:.5px;
+      text-align:center
     }
-    button:hover{transform:translateY(-2px); box-shadow:0 16px 30px rgba(124,134,255,.45)}
-    .btn-alt{background:#30345f}
-    .btn-alt:hover{background:#3a3f74}
-    .msg{min-height:28px; text-align:center; color:var(--muted); font-weight:600; letter-spacing:.4px; margin-top:6px}
-
-    /* Modal */
-    .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; backdrop-filter:blur(4px);}
-    .modal.open{display:flex}
-    .scrim{position:absolute; inset:0; background:rgba(0,0,0,.55)}
-    .modal-card{position:relative; width:min(720px,92vw); background:#0b0e22; border:1px solid rgba(255,255,255,.08);
-      border-radius:20px; padding:12px 12px 8px; box-shadow:0 24px 80px rgba(0,0,0,.6)}
-    .close{position:absolute; top:8px; right:8px; background:#24284d}
-    video{width:100%; border-radius:14px; outline:none}
-
-    /* playful wiggle */
-    @keyframes wiggle{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-    .wiggle{animation:wiggle .35s ease 0s 2}
+    .img-wrap {
+      display:grid;
+      place-items:center;
+      margin:24px 0 16px
+    }
+    .img-wrap img {
+      width:156px;
+      height:156px;
+      object-fit:cover;
+      border-radius:24px;
+      box-shadow:0 14px 40px rgba(0,0,0,.35)
+    }
+    .btns {
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin:8px 0 4px
+    }
+    button {
+      appearance:none;
+      border:0;
+      padding:12px 20px;
+      border-radius:999px;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:600;
+      background:var(--accent);
+      color:#fff
+    }
+    button.btn-alt {
+      background:#444a77
+    }
+    .modal {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      place-items:center
+    }
+    .modal.open {
+      display:grid
+    }
+    .modal-card {
+      background:var(--card);
+      padding:20px;
+      border-radius:20px;
+      max-width:90%;
+      box-shadow:0 10px 40px rgba(0,0,0,0.4)
+    }
+    video {
+      max-width:100%;
+      border-radius:12px
+    }
   </style>
 </head>
 <body>
-  <main class="card" role="main">
-    <h1>CRUSH MO BA AKOOO?</h1>
+  <div class="card">
+    <h1>CRUSH MO BA AKOOO?????</h1>
     <div class="img-wrap">
-      <!-- Replace the src paths with your own files if you rename them -->
-      <img src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/angry.png" alt="Your image" width="156" height="156">
+      <img id="face" src="angry.png" alt="Your image" width="156" height="156" />
     </div>
 
     <div class="btns">
@@ -59,79 +106,56 @@
     </div>
 
     <div id="msg" class="msg" aria-live="polite"></div>
-  </main>
+  </div>
 
   <!-- Modal for video playback -->
-  <div id="modal" class="modal" aria-hidden="true" aria-label="Success video">
-    <div class="scrim" id="scrim"></div>
+  <div id="modal" class="modal" aria-hidden="true" aria-label="success video">
     <div class="modal-card">
       <button id="close" class="close">Close</button>
-      <video controls>
-        <source src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/paldooo.mp4" type="video/mp4">
+      <video id="vid" controls>
+        <source src="paldooo.mp4" type="video/mp4" />
         Your browser does not support the video tag or the file could not be loaded.
       </video>
     </div>
   </div>
 
   <script>
-    const img = document.getElementById('face');
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const maybeBtn = document.getElementById('maybe');
     const msg = document.getElementById('msg');
-    const yes = document.getElementById('yes');
-    const no = document.getElementById('no');
-    const maybe = document.getElementById('maybe');
-
     const modal = document.getElementById('modal');
-    const scrim = document.getElementById('scrim');
     const closeBtn = document.getElementById('close');
     const video = document.getElementById('vid');
 
-    // Helper to randomly move the "No" button
-    function moveNoButton() {
-      const bounds = yes.parentElement.getBoundingClientRect();
-      const btn = no;
-      const maxX = Math.max(0, bounds.width - btn.offsetWidth);
-      const maxY = Math.max(0, 140 - btn.offsetHeight); // keep near the buttons area
-      const x = Math.floor(Math.random() * maxX);
-      const y = Math.floor(Math.random() * maxY);
-      btn.style.position = 'relative';
-      btn.style.left = x + 'px';
-      btn.style.top = y + 'px';
-    }
-
-    yes.addEventListener('click', () => {
-      img.src = 'blee.webp';
-      img.alt = 'Happy image';
-      msg.textContent = 'ACKKKKK!! *BLUSHES*';
-      // Open modal and play video
+    yesBtn.addEventListener('click', () => {
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
-      try { video.currentTime = 0; video.play(); } catch (e) {}
+      try { video.play(); } catch(e) {}
     });
 
-    no.addEventListener('mouseenter', moveNoButton);
-    no.addEventListener('click', moveNoButton);
-
-    maybe.addEventListener('click', () => {
-      maybe.classList.remove('wiggle');
-      void maybe.offsetWidth; // restart animation
-      maybe.classList.add('wiggle');
-      msg.textContent = 'Bawal mag-lie!!';
+    noBtn.addEventListener('click', () => {
+      msg.textContent = 'Bawal mag-no!';
     });
 
-    function closeModal(){
+    maybeBtn.addEventListener('click', () => {
+      msg.textContent = 'Bawal mag-lie!';
+    });
+
+    function closeModal() {
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
-      try { video.pause(); } catch (e) {}
+      try { video.pause(); } catch(e) {}
     }
-    scrim.addEventListener('click', closeModal);
-    closeBtn.addEventListener('click', closeModal);
 
-    // If media fails to load, show a helpful note
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
     video.addEventListener('error', () => {
-      msg.textContent = 'Your browser does not support the video tag or the file could not be loaded.';
+      msg.textContent = 'Video could not be loaded.';
     });
   </script>
 </body>
 </html>
-
-
