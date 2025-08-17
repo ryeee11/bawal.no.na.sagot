@@ -2,73 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bawal Mag-No</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
     }
-
-    #yes, #no, #maybe {
+    #face {
+      margin-top: 20px;
+    }
+    #vid {
+      display: none; /* hidden at first */
+      margin-top: 20px;
+      width: 320px;
+      height: 240px;
+    }
+    .btn {
+      margin-top: 20px;
       padding: 10px 20px;
       font-size: 18px;
-      margin: 10px;
       cursor: pointer;
-    }
-
-    #no {
-      position: absolute;
-    }
-
-    img, video {
-      margin-top: 20px;
-      max-width: 80%;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>CRUSH MO BA AKOOOO????</h1>
+  <h1>Bawal Mag-No</h1>
   
-  <button id="yes">Yes</button>
-  <button id="no">No</button>
-  <button id="maybe">Maybe</button>
-
-  <div>
-    <img src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/yourimage.png" alt="Funny Image">
-  </div>
-
-  <div>
-    <video id="vid" width="400" controls>
-      <source src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/paldooo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
+  <img id="face" src="angry.png" alt="Angry face" width="156" height="156">
+  
+  <br>
+  <button id="yesBtn" class="btn">YES</button>
+  <button id="noBtn" class="btn">NO</button>
+  
+  <video id="vid" controls>
+    <source src="paldooo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  
   <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const maybeBtn = document.getElementById("maybe");
-    const video = document.getElementById("vid");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const vid = document.getElementById("vid");
+    const face = document.getElementById("face");
 
-    // Move "No" button whenever cursor gets close
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-    });
-
-    // Yes button plays video
     yesBtn.addEventListener("click", () => {
-      alert("hehe alam q namannn");
-      video.play();
+      vid.style.display = "block";  // show video
+      vid.play();                   // play video
     });
 
-    // Maybe button gives a funny response
-    maybeBtn.addEventListener("click", () => {
-      alert("Hala! Hindi pwede mag-Maybe!");
+    noBtn.addEventListener("click", () => {
+      face.src = "angry.png";       // still shows the angry face
+      alert("Bawal mag-no! 😡");    // popup warning
     });
   </script>
 </body>
