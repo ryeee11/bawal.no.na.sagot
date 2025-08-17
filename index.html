@@ -14,42 +14,38 @@
     }
     .card{
       width:min(680px, 92vw); background:var(--card); border-radius:28px; padding:32px; box-shadow:0 20px 60px rgba(0,0,0,.4);
-      border:1px solid rgba(255,255,255,.06)
+      border:1px solid rgba(255,255,255,.06); position:relative;
     }
-    h1{margin:0 0 16px; font-size:clamp(24px,5vw,36px); letter-spacing:.5px; text-align:center}
+    h1{margin:0 0 16px; font-size:clamp(24px,5vw,36px); text-align:center}
     .img-wrap{display:grid; place-items:center; margin:8px 0 16px}
     .img-wrap img{width:156px; height:156px; object-fit:cover; border-radius:24px; box-shadow:0 14px 40px rgba(0,0,0,.35)}
     .btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:8px 0 4px}
     button{
       appearance:none; border:0; padding:12px 20px; border-radius:999px; font-size:16px; cursor:pointer; font-weight:600;
       background:linear-gradient(180deg,#8a93ff,#6f79ff); color:white; box-shadow:0 10px 24px rgba(124,134,255,.35);
-      transition:transform .12s ease, box-shadow .2s ease, background .2s ease
+      transition:transform .12s ease, box-shadow .2s ease
     }
     button:hover{transform:translateY(-2px); box-shadow:0 16px 30px rgba(124,134,255,.45)}
     .btn-alt{background:#30345f}
     .btn-alt:hover{background:#3a3f74}
-    .msg{min-height:28px; text-align:center; color:var(--muted); font-weight:600; letter-spacing:.4px; margin-top:6px}
+    #no{position:absolute;} /* make NO button movable */
+    .msg{min-height:28px; text-align:center; color:var(--muted); font-weight:600; margin-top:6px}
 
     /* Modal */
     .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; backdrop-filter:blur(4px);}
     .modal.open{display:flex}
     .scrim{position:absolute; inset:0; background:rgba(0,0,0,.55)}
     .modal-card{position:relative; width:min(720px,92vw); background:#0b0e22; border:1px solid rgba(255,255,255,.08);
-      border-radius:20px; padding:12px 12px 8px; box-shadow:0 24px 80px rgba(0,0,0,.6)}
-    .close{position:absolute; top:8px; right:8px; background:#24284d}
+      border-radius:20px; padding:12px; box-shadow:0 24px 80px rgba(0,0,0,.6)}
+    .close{position:absolute; top:8px; right:8px; background:#24284d; color:white; border:none; border-radius:6px; padding:4px 8px; cursor:pointer;}
     video{width:100%; border-radius:14px; outline:none}
-
-    /* playful wiggle */
-    @keyframes wiggle{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-    .wiggle{animation:wiggle .35s ease 0s 2}
   </style>
 </head>
 <body>
-  <main class="card" role="main">
+  <main class="card">
     <h1>CRUSH MO BA AKOOO?</h1>
     <div class="img-wrap">
-      <!-- Make sure angry.webp & blee.webp are in your repo root -->
-      <img id="face" src="angry.png" alt="Your image" width="156" height="156" />
+      <img id="face" src="angry.png" alt="face" />
     </div>
 
     <div class="btns">
@@ -58,37 +54,34 @@
       <button id="maybe" class="btn-alt">Maybe</button>
     </div>
 
-    <div id="msg" class="msg" aria-live="polite"></div>
+    <div id="msg" class="msg"></div>
   </main>
 
-  <!-- Modal for video playback -->
-  <div id="modal" class="modal" aria-hidden="true" aria-label="Success video">
+  <!-- Modal -->
+  <div id="modal" class="modal">
     <div class="scrim" id="scrim"></div>
     <div class="modal-card">
-      <button id="close" class="close">Close</button>
+      <button id="close" class="close">✖</button>
       <video id="vid" controls>
-        <!-- ✅ use the raw.githubusercontent.com URL -->
-        <source src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/paldooo.mp4" type="video/mp4" />
-        Your browser does not support the video tag or the file could not be loaded.
+        <source src="paldooo.mp4" type="video/mp4">
       </video>
     </div>
-  </div>
-
-  <div class="buttons">
-    <button id="yes">YES</button>
-    <button id="maybe">MAYBE</button>
-    <button id="no">NO</button>
   </div>
 
   <script>
     const noBtn = document.getElementById('no');
     const yesBtn = document.getElementById('yes');
     const maybeBtn = document.getElementById('maybe');
+    const msg = document.getElementById('msg');
+    const modal = document.getElementById('modal');
+    const scrim = document.getElementById('scrim');
+    const closeBtn = document.getElementById('close');
+    const vid = document.getElementById('vid');
 
-    // When hovering near NO button, move it
+    // Move NO button when hovered near
     document.addEventListener('mousemove', function(e) {
       const rect = noBtn.getBoundingClientRect();
-      const offset = 80; // distance sensitivity
+      const offset = 70;
       if (
         e.clientX > rect.left - offset &&
         e.clientX < rect.right + offset &&
@@ -102,18 +95,28 @@
       }
     });
 
-    // YES button action
+    // YES button → open modal + play video
     yesBtn.addEventListener('click', () => {
-      alert("YAY! You said YES ❤️");
-      document.getElementById('vid').play();
+      modal.classList.add('open');
+      vid.play();
     });
 
-    // MAYBE button action
+    // Close modal
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('open');
+      vid.pause();
+      vid.currentTime = 0;
+    });
+    scrim.addEventListener('click', () => {
+      modal.classList.remove('open');
+      vid.pause();
+      vid.currentTime = 0;
+    });
+
+    // MAYBE button → show "bawal maybe"
     maybeBtn.addEventListener('click', () => {
-      alert("MAYBE??? Come on, say YES 😆");
+      msg.textContent = "Bawal maybe!";
     });
   </script>
 </body>
 </html>
-
-
