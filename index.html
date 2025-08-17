@@ -136,6 +136,7 @@
     const video = document.getElementById('vid');
 
     yesBtn.addEventListener('click', () => {
+      msg.textContent = 'Sabi na nga baaa';
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       try { video.play(); } catch(e) {}
@@ -148,7 +149,7 @@
     maybeBtn.addEventListener('click', () => {
       msg.textContent = 'Bawal mag-lie!';
     });
-
+  
     function closeModal() {
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
@@ -163,4 +164,5 @@
   </script>
 </body>
 </html>
+
 
