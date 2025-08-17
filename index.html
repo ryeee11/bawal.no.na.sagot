@@ -74,61 +74,45 @@
     </div>
   </div>
 
+  <div class="buttons">
+    <button id="yes">YES</button>
+    <button id="maybe">MAYBE</button>
+    <button id="no">NO</button>
+  </div>
+
   <script>
-    const img = document.getElementById('face');
-    const msg = document.getElementById('msg');
-    const yes = document.getElementById('yes');
-    const no = document.getElementById('no');
-    const maybe = document.getElementById('maybe');
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const maybeBtn = document.getElementById('maybe');
 
-    const modal = document.getElementById('modal');
-    const scrim = document.getElementById('scrim');
-    const closeBtn = document.getElementById('close');
-    const video = document.getElementById('vid');
-
-    // Move "No" button randomly
-    function moveNoButton() {
-      const bounds = yes.parentElement.getBoundingClientRect();
-      const btn = no;
-      const maxX = Math.max(0, bounds.width - btn.offsetWidth);
-      const maxY = Math.max(0, 140 - btn.offsetHeight);
-      const x = Math.floor(Math.random() * maxX);
-      const y = Math.floor(Math.random() * maxY);
-      btn.style.position = 'relative';
-      btn.style.left = x + 'px';
-      btn.style.top = y + 'px';
-    }
-
-    yes.addEventListener('click', () => {
-      img.src = 'blee.webp';
-      img.alt = 'Happy image';
-      msg.textContent = 'ACKKKKK!! *BLUSHES*';
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      try { video.currentTime = 0; video.play(); } catch (e) {}
+    // When hovering near NO button, move it
+    document.addEventListener('mousemove', function(e) {
+      const rect = noBtn.getBoundingClientRect();
+      const offset = 80; // distance sensitivity
+      if (
+        e.clientX > rect.left - offset &&
+        e.clientX < rect.right + offset &&
+        e.clientY > rect.top - offset &&
+        e.clientY < rect.bottom + offset
+      ) {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+      }
     });
 
-    no.addEventListener('mouseenter', moveNoButton);
-    no.addEventListener('click', moveNoButton);
-
-    maybe.addEventListener('click', () => {
-      maybe.classList.remove('wiggle');
-      void maybe.offsetWidth;
-      maybe.classList.add('wiggle');
-      msg.textContent = 'Bawal mag-lie!!';
+    // YES button action
+    yesBtn.addEventListener('click', () => {
+      alert("YAY! You said YES ❤️");
+      document.getElementById('vid').play();
     });
 
-    function closeModal(){
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      try { video.pause(); } catch (e) {}
-    }
-    scrim.addEventListener('click', closeModal);
-    closeBtn.addEventListener('click', closeModal);
-
-    video.addEventListener('error', () => {
-      msg.textContent = 'Video could not be loaded.';
+    // MAYBE button action
+    maybeBtn.addEventListener('click', () => {
+      alert("MAYBE??? Come on, say YES 😆");
     });
   </script>
 </body>
 </html>
+
