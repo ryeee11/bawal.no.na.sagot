@@ -1,179 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BE HONEST!</title>
+  <meta charset="UTF-8">
+  <title>Bawal Mag-No</title>
   <style>
-    :root {
-      --bg:#0f1226;
-      --card:#171a36;
-      --text:#f5f7ff;
-      --muted:#a7abcf;
-      --accent:#7c86ff
-    }
-    * { box-sizing:border-box }
-    html,body { height:100% }
     body {
-      margin:0;
-      display:grid;
-      place-items:center;
-      background:radial-gradient(90vmax 90vmax at 50% -20%, #20245a 0%, #0f1226 100%);
-      color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
     }
-    .card {
-      width:min(680px, 92vw);
-      background:var(--card);
-      border-radius:28px;
-      padding:32px;
-      box-shadow:0 20px 60px rgba(0,0,0,.4);
-      border:1px solid rgba(255,255,255,.06)
+
+    #yes, #no, #maybe {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
     }
-    h1 {
-      margin:0 0 16px;
-      font-size:clamp(24px,5vw,36px);
-      letter-spacing:.5px;
-      text-align:center
+
+    #no {
+      position: absolute;
     }
-    .img-wrap {
-      display:grid;
-      place-items:center;
-      margin:24px 0 16px
-    }
-    .img-wrap img {
-      width:156px;
-      height:156px;
-      object-fit:cover;
-      border-radius:24px;
-      box-shadow:0 14px 40px rgba(0,0,0,.35)
-    }
-    .btns {
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin:8px 0 4px
-    }
-    button {
-      appearance:none;
-      border:0;
-      padding:12px 20px;
-      border-radius:999px;
-      font-size:16px;
-      cursor:pointer;
-      font-weight:600;
-      background:var(--accent);
-      color:#fff
-    }
-    button.btn-alt {
-      background:#444a77
-    }
-    /* Modal */
-    .modal {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.6);
-      place-items:center;
-      z-index:1000;
-    }
-    .modal.open {
-      display:grid;
-    }
-    .modal-card {
-      background:var(--card);
-      padding:20px;
-      border-radius:20px;
-      max-width:90%;
-      box-shadow:0 10px 40px rgba(0,0,0,0.4);
-      text-align:center;
-    }
-    video {
-      max-width:100%;
-      border-radius:12px;
-    }
-    #close {
-      margin-bottom:12px;
-      background:#e74c3c;
+
+    img, video {
+      margin-top: 20px;
+      max-width: 80%;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>CRUSH MO BA AKOOOO????</h1>
-    <div class="img-wrap">
-      <img id="face" src="angry.png" alt="Your image" width="156" height="156" />
-    </div>
+  <h1>CRUSH MO BA AKOOOO????</h1>
+  
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+  <button id="maybe">Maybe</button>
 
-    <div class="btns">
-      <button id="yes">Yes</button>
-      <button id="no" class="btn-alt">No</button>
-      <button id="maybe" class="btn-alt">Maybe</button>
-    </div>
-
-    <div id="msg" class="msg" aria-live="polite"></div>
+  <div>
+    <img src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/yourimage.png" alt="Funny Image">
   </div>
 
-  <!-- Modal for video playback -->
-  <div id="modal" class="modal" aria-hidden="true" aria-label="success video">
-    <div class="modal-card">
-      <button id="close">Close</button>
-      <video id="vid" controls>
-        <source src="paldooo.mp4" type="video/mp4" />
-        Your browser does not support the video tag or the file could not be loaded.
-      </video>
-    </div>
+  <div>
+    <video id="vid" width="400" controls>
+      <source src="https://raw.githubusercontent.com/ryeee11/bawal.no.na.sagot/main/paldooo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
   <script>
-    const yesBtn = document.getElementById('yes');
-    const noBtn = document.getElementById('no');
-    const maybeBtn = document.getElementById('maybe');
-    const msg = document.getElementById('msg');
-    const modal = document.getElementById('modal');
-    const closeBtn = document.getElementById('close');
-    const video = document.getElementById('vid');
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const maybeBtn = document.getElementById("maybe");
+    const video = document.getElementById("vid");
 
-    yesBtn.addEventListener('click', () => {
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      try { video.play(); } catch(e) {}
-    });
-    
+    // Move "No" button whenever cursor gets close
     noBtn.addEventListener("mouseover", () => {
-      const bodyWidth = window.innerWidth;
-      const bodyHeight = window.innerHeight;
-      const btnWidth = noBtn.offsetWidth;
-      const btnHeight = noBtn.offsetHeight;
-
-      // generate random x and y so button stays fully inside screen
-      const x = Math.random() * (bodyWidth - btnWidth);
-      const y = Math.random() * (bodyHeight - btnHeight);
-
+      const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
     });
 
-    maybeBtn.addEventListener('click', () => {
-      msg.textContent = 'Bawal mag-lie!';
+    // Yes button plays video
+    yesBtn.addEventListener("click", () => {
+      alert("hehe alam q namannn");
+      video.play();
     });
-  
-    function closeModal() {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      try { video.pause(); } catch(e) {}
-    }
 
-    closeBtn.addEventListener('click', closeModal);
-
-    video.addEventListener('error', () => {
-      msg.textContent = 'Video could not be loaded.';
+    // Maybe button gives a funny response
+    maybeBtn.addEventListener("click", () => {
+      alert("Hala! Hindi pwede mag-Maybe!");
     });
   </script>
 </body>
 </html>
-
-
-
-
