@@ -101,7 +101,7 @@
 </head>
 <body>
   <div class="card">
-    <h1>Will you be my crush?</h1>
+    <h1>CRUSH MO BA AKOOOO????</h1>
     <div class="img-wrap">
       <img id="face" src="angry.png" alt="Your image" width="156" height="156" />
     </div>
@@ -141,8 +141,8 @@
       try { video.play(); } catch(e) {}
     });
 
-    noBtn.addEventListener('click', () => {
-      msg.textContent = 'Bawal mag-no!';
+    no.addEventListener('mouseenter', moveNoButton);
+    no.addEventListener('click', moveNoButton);
     });
 
     maybeBtn.addEventListener('click', () => {
@@ -163,3 +163,4 @@
   </script>
 </body>
 </html>
+
